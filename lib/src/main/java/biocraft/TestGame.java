@@ -6,21 +6,17 @@ import org.lwjgl.opengl.GL11;
 import biocraft.core.ILogic;
 import biocraft.core.ObjectLoader;
 import biocraft.core.RenderManager;
-import biocraft.core.Shader;
 import biocraft.core.WindowManager;
 import biocraft.core.entity.Model;
-import biocraft.core.utils.Utils;
+import biocraft.core.entity.Texture;
 
 public class TestGame implements ILogic {
 
-	private int direction = 0;
-	private float colour = 0.0f;
-	
 	private final RenderManager renderer;
 	private final ObjectLoader loader;
 	private final WindowManager window;
-	
-	private Model model;
+
+	private Model cartaz;
 	
 	public TestGame() {
 		renderer = new RenderManager();
@@ -32,26 +28,30 @@ public class TestGame implements ILogic {
 	public void init() throws Exception {
 		renderer.init();
 
-		
 		float[] vertices = {
-			0, 0, 0,
-			1, 0, 0,
-			1, 1, 0,
-			0, 1, 0,
-			
-			0, 0, 1,
-			1, 0, 1,
-			1, 1, 1,
-			0, 1, 1,
+			-0.5f,0,0,
+			0.5f,0,0,
+			0.5f,1.3f,0,
+			-0.5f,1.3f,0,
+		};
+		
+		float[] texCoords = {
+			0, 1,
+			1, 1,
+			1, 0,
+			0, 0
 		};
 		
 		int[] indices = {
 			0, 1, 2,
-			2, 3, 0,
+			2, 3, 0
 		};
 		
 		
-		model = loader.loadModel(vertices, indices);
+		cartaz = loader.loadModel(vertices, texCoords, indices);
+		Texture texture = loader.loadTexture("textures/cartaz.png");
+		cartaz.setTexture(texture);
+		
 	}
 
 	@Override
@@ -61,16 +61,25 @@ public class TestGame implements ILogic {
 
 	@Override
 	public void update() {
+		if(d >= -2) {
+			d = -2;
+		}
 		
+		if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
+			d += 1;
+		}
 	}
 
+	float d = -150;
+	
 	@Override
 	public void render() {
 		if(window.isResize()) {
 			GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
 			window.setResize(true);
 		}
-		renderer.render(model);
+		renderer.clear();
+		renderer.render(cartaz, d);
 	}
 
 	@Override

@@ -63,6 +63,11 @@ public class Shader {
 		GL20.glUniform1f(uniformId, value);;
 	}
 	
+	public void setUniform1i (String attribName, int value) {
+		int uniformId = GL20.glGetUniformLocation(programId, attribName);
+		GL20.glUniform1f(uniformId, value);;
+	}
+	
 	public void setUniformMat4f (String attribName, Matrix4f value) {
 		try(MemoryStack stack = MemoryStack.stackPush()){
 			int uniformId = GL20.glGetUniformLocation(programId, attribName);
@@ -75,6 +80,7 @@ public class Shader {
 		bindAttribute(1, "projection");
 		bindAttribute(2, "model");
 		bindAttribute(3, "view");
+		bindAttribute(4, "textureSampler");
 	}
 	
 	private void bindAttribute (int id, String attribName) {
