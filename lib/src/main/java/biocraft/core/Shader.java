@@ -1,7 +1,9 @@
 package biocraft.core;
 
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.system.MemoryStack;
 
 public class Shader {
 	
@@ -12,6 +14,8 @@ public class Shader {
 		programId = GL20.glCreateProgram();
 		if(programId == 0)
 			throw new Exception("Could not create Shader");
+		
+		bindAttributes();
 	}
 	
 	public void createVertexShader(String shaderCode) throws Exception {
@@ -52,6 +56,29 @@ public class Shader {
 		GL20.glValidateProgram(programId);
 		if(GL20.glGetProgrami(programId, GL20.GL_VALIDATE_STATUS) == 0)
 			throw new Exception("Unable to validate shader code: " + GL20.glGetProgramInfoLog(programId, 1024));
+	}
+	
+	public void setUniform1f (String attribName, float value) {
+		int uniformId = GL20.glGetUniformLocation(programId, attribName);
+		GL20.glUniform1f(uniformId, value);;
+	}
+	
+	public void setUniformMat4f (String attribName, Matrix4f value) {
+		try(MemoryStack stack = MemoryStack.stackPush()){
+			int uniformId = GL20.glGetUniformLocation(programId, attribName);
+			GL20.glUniformMatrix4fv(uniformId, false, value.get(stack.mallocFloat(16)));;
+		}
+	}
+	
+	private void bindAttributes() {
+		bindAttribute(0, "time");
+		bindAttribute(1, "projection");
+		bindAttribute(2, "model");
+		bindAttribute(3, "view");
+	}
+	
+	private void bindAttribute (int id, String attribName) {
+		GL20.glBindAttribLocation(programId, id, attribName);
 	}
 	
 	public void bind() {

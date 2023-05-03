@@ -9,7 +9,7 @@ public class Launcher {
 	private static TestGame game;
 	
 	public static void main(String[] args) {
-		window = new WindowManager("biocraft", 900, 600, false);
+		window = new WindowManager("biocraft", 900, 600, true);
 		game = new TestGame();
 		engine = new EngineManager();
 		

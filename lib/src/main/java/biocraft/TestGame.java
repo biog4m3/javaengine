@@ -80,7 +80,6 @@ public class TestGame implements ILogic {
 			GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
 			window.setResize(true);
 		}
-		
 		window.setClearColor(colour, colour, colour, 1);
 		renderer.render(model);
 	}

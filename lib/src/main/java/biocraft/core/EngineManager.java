@@ -2,6 +2,7 @@ package biocraft.core;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GL11;
 
 import biocraft.Launcher;
 import biocraft.core.utils.Consts;
