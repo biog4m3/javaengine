@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 import biocraft.core.ILogic;
 import biocraft.core.ObjectLoader;
 import biocraft.core.RenderManager;
+import biocraft.core.Shader;
 import biocraft.core.WindowManager;
 import biocraft.core.entity.Model;
 import biocraft.core.utils.Utils;
@@ -30,6 +31,7 @@ public class TestGame implements ILogic {
 	@Override
 	public void init() throws Exception {
 		renderer.init();
+
 		
 		float[] vertices = {
             -0.5f, 0.5f, 0f,

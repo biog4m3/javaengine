@@ -40,7 +40,7 @@ public class Shader {
 	
 	public void link() throws Exception {
 		GL20.glLinkProgram(programId);
-		if(GL20.glGetProgrami(programId, GL20.GL_COMPILE_STATUS) == 0)
+		if(GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS) == 0)
 			throw new Exception("Error linking shader code " + "INFO:" + GL20.glGetProgramInfoLog(programId, 1024));
 		
 		if(vertexShaderId != 0)

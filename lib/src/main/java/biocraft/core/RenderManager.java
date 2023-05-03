@@ -6,25 +6,32 @@ import org.lwjgl.opengl.GL30;
 
 import biocraft.Launcher;
 import biocraft.core.entity.Model;
+import biocraft.core.utils.Utils;
 
 public class RenderManager {
 	private final WindowManager window;
+	private Shader shader;
 	
 	public RenderManager() {
 		window = Launcher.getWindow();
 	}
 	
 	public void init() throws Exception {
-		
+		shader = new Shader();
+		shader.createVertexShader(Utils.loadResource("/shaders/default.vs"));
+		shader.createFragmentShader(Utils.loadResource("/shaders/default.fs"));
+		shader.link();
 	}
 	
 	public void render(Model model) {
 		clear();
+		shader.bind();
 		GL30.glBindVertexArray(model.getId());
 		GL20.glEnableVertexAttribArray(0);
 		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
 		GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0);
+		shader.unbind();
 	}
 	
 	public void clear() {
