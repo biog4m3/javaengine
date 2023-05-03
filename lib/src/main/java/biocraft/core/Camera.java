@@ -9,10 +9,28 @@ public class Camera {
 	private float yaw;
 	private float roll;
 	
-	public void move(float dx, float dy, float dz) {
-		position.x += dx;
-		position.y += dy;
-		position.z += dz;
+	public void setPosition (float dx, float dy, float dz) {
+		position.x = dx;
+		position.y = dy;
+		position.z = dz;
+	}
+	
+	public void setRotation(float dx, float dy, float dz) {
+		pitch = dx;
+		yaw = dy;
+		roll = dz;
+	}
+	
+	public void movePosition(float dx, float dy, float dz) {
+		//position.x += Math.cos(Math.toRadians(yaw)) * dz;
+		//position.y += dy;
+		//position.z += Math.sin(Math.toRadians(yaw)) * dx;
+	}
+	
+	public void moveRotation(float dx, float dy, float dz) {
+		pitch += dx;
+		yaw += dy;
+		roll += dz;
 	}
 	
 	public Matrix4f getViewMatrix() {

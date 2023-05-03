@@ -34,17 +34,20 @@ public class TestGame implements ILogic {
 
 		
 		float[] vertices = {
-            -0.5f, 0.5f, 0f,
-            -0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f,
-            0.5f, 0.5f, 0f,
-            -0.5f, 0.5f, 0f
+			0, 0, 0,
+			1, 0, 0,
+			1, 1, 0,
+			0, 1, 0,
+			
+			0, 0, 1,
+			1, 0, 1,
+			1, 1, 1,
+			0, 1, 1,
 		};
 		
 		int[] indices = {
-			0, 1, 3,
-			3, 1, 2
+			0, 1, 2,
+			2, 3, 0,
 		};
 		
 		
@@ -53,24 +56,11 @@ public class TestGame implements ILogic {
 
 	@Override
 	public void input() {
-		// TODO Auto-generated method stub
-		if(window.isKeyPressed(GLFW.GLFW_KEY_UP)) {
-			direction = 1;
-		}else if(window.isKeyPressed(GLFW.GLFW_KEY_DOWN)) {
-			direction = -1;
-		}else {
-			direction = 0;
-		}
+		
 	}
 
 	@Override
 	public void update() {
-		colour += direction * 0.01f;
-		if(colour > 1) {
-			colour = 1.0f; 
-		}else if (colour <= 0) {
-			colour = 0;
-		}
 		
 	}
 
@@ -80,7 +70,6 @@ public class TestGame implements ILogic {
 			GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
 			window.setResize(true);
 		}
-		window.setClearColor(colour, colour, colour, 1);
 		renderer.render(model);
 	}
 
