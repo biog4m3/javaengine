@@ -15,8 +15,8 @@ public class TestGame implements ILogic {
 	private final RenderManager renderer;
 	private final ObjectLoader loader;
 	private final WindowManager window;
-
-	private Model cartaz;
+	
+	private Model test;
 	
 	public TestGame() {
 		renderer = new RenderManager();
@@ -27,31 +27,10 @@ public class TestGame implements ILogic {
 	@Override
 	public void init() throws Exception {
 		renderer.init();
-
-		float[] vertices = {
-			-0.5f,0,0,
-			0.5f,0,0,
-			0.5f,1.3f,0,
-			-0.5f,1.3f,0,
-		};
 		
-		float[] texCoords = {
-			0, 1,
-			1, 1,
-			1, 0,
-			0, 0
-		};
-		
-		int[] indices = {
-			0, 1, 2,
-			2, 3, 0
-		};
-		
-		
-		cartaz = loader.loadModel(vertices, texCoords, indices);
+		test = loader.loadOBJModel("/models/bunny.obj");
 		Texture texture = loader.loadTexture("textures/cartaz.png");
-		cartaz.setTexture(texture);
-		
+		test.setTexture(texture);
 	}
 
 	@Override
@@ -61,16 +40,8 @@ public class TestGame implements ILogic {
 
 	@Override
 	public void update() {
-		if(d >= -2) {
-			d = -2;
-		}
 		
-		if(window.isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
-			d += 1;
-		}
 	}
-
-	float d = -150;
 	
 	@Override
 	public void render() {
@@ -79,7 +50,7 @@ public class TestGame implements ILogic {
 			window.setResize(true);
 		}
 		renderer.clear();
-		renderer.render(cartaz, d);
+		renderer.render(test);
 	}
 
 	@Override

@@ -30,13 +30,15 @@ public class RenderManager {
 	
 	float t = 0;
 	
-	public void render(Model model, float d) {
+	public void render(Model model) {
+		t+=0.01f;
 		shader.bind();
 		
 		shader.setUniformMat4f("projection", window.updateProjectionMatrix());
-		shader.setUniformMat4f("model", new Matrix4f().translate(0, (float) (Math.sin(t) / 10) - 0.5f, d));
+		shader.setUniformMat4f("model", new Matrix4f().translate(0, 0, -.4f).rotate(t, 0, 1, 0));
 		shader.setUniformMat4f("view", camera.getViewMatrix());
 		shader.setUniform1i("textureSampler", 0);
+		
 		
 		GL30.glBindVertexArray(model.getId());
 		
@@ -55,8 +57,6 @@ public class RenderManager {
 		GL30.glBindVertexArray(0);
 		
 		shader.unbind();
-		
-		t+=0.01f;
 	}
 	
 	public void clear() {
