@@ -1,14 +1,8 @@
 package com.biogenis.core;
 
 public interface ILogic {
-	
-	void init() throws Exception;
-	
-	void input();
-	
-	void update();
-	
-	void render();
-	
-	void cleanup();
+	public void init() throws Exception;
+	public void update();
+	public void render();
+	public void dispose();
 }
